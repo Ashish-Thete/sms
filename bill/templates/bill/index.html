@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<center><h1>SURYA VIHAR D & E CO-OP. HSG SOC.LTD.</h1><br>
+Registration No.TNA/ABN/HSG/(TC)/20477/2008-2009</small><br>
+S.N.43, HISSA No.1 (PART) BEHIND DUBE HOSPITAL, KATRAP<br>
+</center>
+{% load staticfiles %}
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'bill/css/style.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/layout.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/reset.css' %}" type="text/css" media="all">
+
+<script type="text/javascript" src="{% static 'bill/js/jquery-1.4.2.js' %}" ></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-replace.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/Myriad_Pro_600.font.js' %}"></script>
+</head>
+<body id="page1" background="{% static 'bill/images/bg.jpg' %}">
+<div class="extra">
+	<div class="main">
+    <!-- header -->
+		<header>
+			<nav>
+				<ul id="menu">
+					<li><a href="index.html" class="nav1">Home</a></li>
+					<li><a href="/admin/bill/person/add/" class="nav2">Add User</a></li>
+					<li><a href="/admin/bill/person/" class="nav3">View User</a></li>
+					<li><a href="Destinations.html" class="nav4">Records</a></li>
+					<li class="end"><a href="Contacts.html" class="nav5">About</a></li>
+				</ul>
+			</nav>
+      {% if flat_user_list %}
+          <ul>
+          {% for flat_user in flat_user_list %}
+              <li><a href="/bill/{{ flat_user.id }}/">{{ flat_user.name }}</a></li>
+          {% endfor %}
+          </ul>
+      {% else %}
+          <p>No flat User are available.</p>
+      {% endif %}
+    </header>
+  </div>
+</div>
+</body>
+</html>

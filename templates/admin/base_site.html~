@@ -1,0 +1,9 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('SMS admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="Society Management"><a href="{% url 'admin:index' %}">Society Management</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

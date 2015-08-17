@@ -1,0 +1,121 @@
+{% extends "easy_pdf/base.html" %}
+<html>
+			<head>
+				<title>Bill View</title>
+			</head>
+		<body>
+
+			{% load staticfiles %}
+			<script src="bill/angular.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="{% static 'bill/style.css' %}" />
+			{% block extra_style %}
+			<style type="text/css">
+			@font-face { font-family: Lato; src: url(fonts/Lato-Reg.ttf); }
+			body {
+			font-family: "Lato", "Helvetica", "sans-serif";
+			color: #333333;
+			}
+			</style>
+			{% endblock %}
+
+			<h2>Bill Details</h2>
+			<article class="tests">
+					<div class="user">
+						{% if bill %}
+							Month of Bill:: {{ bill.month }}
+							<table cellpadding="2" cellspacing="2" width="40%" bgcolor="white">
+								<tr>
+									<td> Name of Flat Holder :: </td>
+									<td>{{ bill.user.name }}</td>
+								</tr>
+								<tr>
+									<td> Mobile No :: </td>
+									<td>{{ bill.user.mobile }}</td>
+								</tr>
+								<tr>
+									<td> Flat No :: </td>
+									<td>{{ bill.user.flat_no }}</td>
+									<td> Wing :: </td>
+									<td>{{ bill.user.wing }}</td>
+									<td> Flat Area :: </td>
+									<td>{{ bill.user.area }}</td>
+								</tr>
+							</table>
+						{% else %}
+							<p>No Flat user are available.</p>
+						{% endif %}
+					</div>
+					<div class='perticulars'>
+						{% if bill %}
+						<div class="content">
+							<table cellpadding="2" cellspacing="2" width="100%" bgcolor="white">
+								<tr>
+									<td bgcolor="#cccccc" align="center">Sr No</td>
+									<td bgcolor="#cccccc" align="center">Particulars</td>
+									<td bgcolor="#cccccc" align="center">Amount</td>
+								</tr>
+								<tr>
+									<td align="center">1</td>
+									<td align="center">Sinking Fund</td>
+									<td align="center"><i>{{ bill.sinking_fund }}</i></td>
+								</tr>
+								<tr>
+									<td align="center">2</td>
+									<td align="center">Repairs & Maintainance</td>
+									<td align="center"><i>{{bill.repair_and_maintainance}}</i></td>
+								</tr>
+								<tr>
+									<td align="center">3</td>
+									<td align="center">Water Charges</td>
+									<td align="center"><i>{{ bill.water_charges }}</i></td>
+								</tr>
+								<tr>
+									<td align="center">4</td>
+									<td align="center">Electricity Charges</td>
+									<td align="center"><i>{{ bill.electricity_charges }}</i></td>
+								</tr>
+								<tr>
+									<td align="center">5</td>
+									<td align="center">Service Charges</td>
+									<td align="center"><i>{{ bill.service_charges }}</i></td>
+								</tr>
+							</table>
+							<table cellpadding="2" cellspacing="2" width="100%">
+								<tr>
+									<td bgcolor="#cccccc" align="center"></td>
+									<td bgcolor="#cccccc" align="center">Total</td>
+									<td bgcolor="#cccccc" align="center"><b>{{ bill.total_charges }}</b></td>
+								</tr>
+								<tr>
+									<td align="center"></td>
+									<td align="center">Interest</td>
+									<td align="center">{{ bill.interest }}</td>
+								</tr>
+								<tr>
+									<td align="center"></td>
+									<td align="center">Penalty</td>
+									<td align="center">{{ bill.penalty }}</td>
+								</tr>
+								<tr>
+									<td align="center"></td>
+									<td align="center">Adjustments</td>
+									<td align="center">{{ bill.adjustments }}</td>
+								</tr>
+								<tr>
+									<td align="center"></td>
+									<td align="center">Total Due Amount & payable Rs.</td>
+									<td align="center"><b>{{ bill.payble_amt }}</b></td>
+								</tr>
+							</table>
+						</div>
+						<a href="/bill/print/{{ bill.id }}/">pdf</a>
+						<button onclick="window.print();">Print Bill</button>
+				    <a href="#">pdf</a>
+						{% else %}
+						<p>No Flat user are available.</p>
+					  {% endif %}
+					</div>
+					<br>
+			</article>
+</body>
+</html>

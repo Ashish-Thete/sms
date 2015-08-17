@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<center><h1>SURYA VIHAR D & E CO-OP. HSG SOC.LTD.</h1><br>
+Registration No.TNA/ABN/HSG/(TC)/20477/2008-2009</small><br>
+S.N.43, HISSA No.1 (PART) BEHIND DUBE HOSPITAL, KATRAP<br>
+</center>
+{% load staticfiles %}
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'bill/css/style.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/layout.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/reset.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/jqueryCalendar.css' %}" type="text/css" media="all">
+
+<script type="text/javascript" src="{% static 'bill/js/jquery-1.6.2.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-replace.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/Myriad_Pro_600.font.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/jquery-ui-1.8.15.custom.min.js' %}"></script>
+
+<script>
+      jQuery(function() {
+                      jQuery( "#calendar").datepicker();
+                      jQuery( "#calendar1").datepicker();
+      });
+</script>
+</head>
+<body id="page1">
+<div class="extra">
+	<div class="main">
+<!-- header -->
+		<header>
+			<nav>
+				<ul id="menu">
+					<li><a href="index.html" class="nav1">Home</a></li>
+					<li><a href="/admin/bill/person/add/" class="nav2">Add User</a></li>
+					<li><a href="/admin/bill/person/" class="nav3">View User</a></li>
+					<li><a href="Destinations.html" class="nav4">Records</a></li>
+					<li class="end"><a href="Contacts.html" class="nav5">About</a></li>
+				</ul>
+			</nav>
+
+				<h2>Bill Details</h2>
+				<article class="tests">
+					<form id="BillDetails" action="{% url 'bill:print' person.id %}" method="post">
+						{% csrf_token %}
+						<div class="user">
+							{% if person %}
+							<div class="dateInfo">
+									<table cellpadding="12" cellspacing="2" width="100%" bgcolor="white">
+									<tr>
+										<td align="center" width="10%"><span class="names">Month:: </span></td>
+										<td align="center" width="10%">				<select id="month">
+																<option value="Jan">Jan</option>
+																<option value="Feb">Feb</option>
+																<option value="Mar">Mar</option>
+																<option value="Apr">Apr</option>
+																<option value="May">May</option>
+																<option value="Jun">Jun</option>
+																<option value="Jul">Jul</option>
+																<option value="Aug">Aug</option>
+																<option value="Sep">Sep</option>
+																<option value="Oct">Oct</option>
+																<option value="Nov">Nov</option>
+																<option value="Dec">Dec</option>
+																</select>
+									</td>
+									<td align="center" width="20%"><span class="names">Statement Date:</span></td>
+									<td align="center" width="20%"> <input type="text" id="calendar" /></td>
+									<td align="center" width="20%"><span class="names">Due Date:</span></td>
+									<td align="center" width="20%"> <input type="text" id="calendar1" /></td>
+									</tr>
+									</table>
+							</div>
+								<table cellpadding="2" cellspacing="2" width="100%" bgcolor="white">
+									<tr>
+										<td><span class="names">Name of Flat Holder :: </span></td>
+										<td>{{ person.name }}</td>
+									</tr>
+										<td />
+									<tr>
+										<td><span class="names">Mobile No :: </span></td>
+										<td>{{ person.mobile }}</td>
+                    <td> Email :: </td>
+                    <td>{{ person.email }}</td>
+									</tr>
+									<tr>
+										<td><span class="names">Flat No :: </span></td>
+										<td>{{ person.flat_no }}</td>
+										<td />
+									</tr>
+									<tr>
+										<td><span class="names">Wing :: </span></td>
+										<td>{{ person.wing }}</td>
+										<td />
+									</tr>
+									<tr>
+										<td><span class="names">Flat Area :: </span></td>
+										<td>{{ person.area }}</td>
+										<td />
+									</tr>
+								</table>
+							{% else %}
+								<p>No Flat user are available.</p>
+							{% endif %}
+						</div>
+
+						<div class='test'>
+							<div class="content">
+								<table cellpadding="2" cellspacing="2" width="100%" bgcolor="black">
+									<tr>
+										<td bgcolor="#cccccc" align="center"><span class="names">Sr No</span></td>
+										<td bgcolor="#cccccc" align="center"><span class="names">Particulars</span></td>
+										<td bgcolor="#cccccc" align="center"><span class="names">Amount</span></td>
+									</tr>
+									<tr>
+										<td align="center">1</td>
+										<td align="center">Sinking Fund</td>
+										<td align="center"><input onblur="sum()" alignment="right" type="text" id="sink" name="sink" value="0" ></td>
+									</tr>
+									<tr>
+										<td align="center">2</td>
+										<td align="center">Repairs & Maintainance</td>
+										<td align="center"><input onblur="sum()" alignment="right" type="text" id="repair" name="repair" value="0"></td>
+									</tr>
+									<tr>
+										<td align="center">3</td>
+										<td align="center">Water Charges</td>
+										<td align="center"><input onblur="sum()" alignment="right" type="text" name="water_fund" id="water_fund" value="0" ></td>
+									</tr>
+									<tr>
+										<td align="center">4</td>
+										<td align="center">Electricity Charges</td>
+										<td align="center"><input onblur="sum()" alignment="right" type="text" id="electricity_charge" name="electricity_charge" value="0" ></td>
+									</tr>
+									<tr>
+										<td align="center">5</td>
+										<td align="center">Service Charges</td>
+										<td align="center"><input  alignment="right" onblur="sum()" type="text" id="service_charge" name="service_charge" value="0" ></td>
+									</tr>
+								</table>
+								<table cellpadding="2" cellspacing="2" width="100%">
+									<tr>
+										<td bgcolor="#cccccc" align="center"></td>
+										<td bgcolor="#cccccc" align="center"><span class="names">Total</span></td>
+										<td bgcolor="#cccccc" align="center"><input style="font-weight: bold;" type="text" id="total" name="total" readonly></td>
+									</tr>
+									<tr>
+										<td align="center"></td>
+										<td align="center">Interest</td>
+										<td align="center"><input type="text" onblur="total_due()" name="interest" id="interest" bgcolor="red"></td>
+									</tr>
+									<tr>
+										<td align="center"></td>
+										<td align="center">Penalty</td>
+										<td align="center"><input type="text" onblur="total_due()" name="penalty" id="penalty" bgcolor="red"></td>
+									</tr>
+									<tr>
+										<td align="center"></td>
+										<td align="center">Adjustments</td>
+										<td align="center"><input type="text" onblur="total_due()" id="adjustments" name="adjustments" bgcolor="red"></td>
+									</tr>
+									<tr >
+										<td bgcolor="#cccccc" align="center"></td>
+										<td bgcolor="#cccccc" align="center">Total Due Amount & payable Rs.</td>
+										<td bgcolor="#cccccc"align="center"><input style="font-weight: bold;" type="text" id ="gross" name="gross" bgcolor="red"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<br>
+						<input class="cust_button" type="submit" value="print" />
+					</form>
+				</article>
+			</header>
+			<div class="img"><img src="" alt=""></div>
+		</div>
+		<div class="block"></div>
+		<div class="block"></div>
+	</div>
+	<script type="text/javascript">
+	 Cufon.now();
+	function sum() {
+				 var sink = document.getElementById('sink').value;
+				 var repair = document.getElementById('repair').value;
+				 var water_fund = document.getElementById('water_fund').value;
+				 var electricity_charge = document.getElementById('electricity_charge').value;
+				 var service_charge = document.getElementById('service_charge').value;
+				 if (sink == "")
+						 sink = 0;
+				 if (repair == "")
+						 repair = 0;
+				 if (water_fund == "")
+						 water_fund = 0;
+				 if (electricity_charge == "")
+						 electricity_charge = 0;
+				 if (service_charge == "")
+						 service_charge = 0;
+
+				 var result = parseInt(sink) + parseInt(repair)+ parseInt(water_fund) + parseInt(electricity_charge) + parseInt(service_charge);
+				 console.log("Total value")
+				 console.log(result)
+				 if (!isNaN(result)) {
+						 document.getElementById('total').value = result;
+				 }
+		 }
+		 function total_due()
+		 {
+			 var total = document.getElementById('total').value;
+			 console.log("Total Charge")
+			 console.log(total)
+			 var interest = document.getElementById('interest').value;
+			 console.log("interest")
+			 console.log(interest)
+			 var penalty = document.getElementById('penalty').value;
+			 console.log(penalty)
+			 var adjustments = document.getElementById('adjustments').value;
+			 console.log(adjustments)
+			 if (interest == "")
+					 interest = 0;
+			 if (penalty == "")
+					 penalty = 0;
+			 if (adjustments == "")
+					 adjustments = 0;
+
+			 var amt = 	(parseInt(interest)/100) * parseInt(total)
+			 var result = parseInt(total) + parseInt(amt)+ parseInt(penalty) + parseInt(adjustments);
+			 console.log(result)
+			 if (!isNaN(result)) {
+					 document.getElementById('gross').value = result;
+			 }
+
+		 }
+		 </script>
+
+	</body>
+</html>

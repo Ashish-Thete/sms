@@ -1,0 +1,97 @@
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
+# from easy_pdf.views import PDFTemplateView
+from .models import Person
+from .models import Bill
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from .forms import BillForm
+
+class IndexView(generic.ListView):
+    template_name = 'bill/index.html'
+    context_object_name = 'flat_user_list'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Person.objects.all()
+
+class DetailView(generic.DetailView):
+    model = Person
+    template_name = 'bill/detail.html'
+
+
+def index(request):
+	flat_user_list = Person.objects.all()
+	context = {'flat_user_list': flat_user_list}
+	return render(request, 'bill/index.html', context)
+
+def detail(request, person_id):
+    try:
+        person = Person.objects.get(pk=person_id)
+    except Person.DoesNotExist:
+        raise Http404("Flat user does not exist")
+    return render(request, 'bill/detail.html', {'person': person})
+
+
+from .forms import BillForm
+
+def get_name(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = BillForm()
+
+    return render(request, 'name.html', {'form': form})
+
+"""
+class HelloPDFView(PDFTemplateView):
+    template_name = "hello.html"
+    def get_context_data(self, **kwargs):
+        return super(HelloPDFView, self).get_context_data(
+                    pagesize="A4",
+                    title="Hi there!",
+                    **kwargs
+                    )
+"""
+def printBill(request, person_id):
+    try:
+        flat_user = Person.objects.get(pk=person_id)
+    except:
+        p= None
+
+    try:
+        bill = get_object_or_404(Bill, user=user)
+    except:
+        bill = None
+    if bill == None:
+        bill = Bill(user=flat_user)
+
+	bill.due_date = "2015-08-10"
+	bill.month = "July"
+    bill.statement_date = "2015-08-09"
+    bill.sinking_fund = request.POST['sink']
+    bill.repair_and_maintainance = request.POST['repair']
+    bill.water_charges = request.POST['water_fund']
+    bill.electricity_charges = request.POST['electricity_charge']
+    bill.service_charges= request.POST['service_charge']
+    bill.interest = request.POST['interest']
+    bill.penalty = request.POST['penalty']
+    bill.adjustments = request.POST['adjustments']
+    bill.unpaid_due = 0
+    bill.total_charges = request.POST['total']
+    bill.payble_amt = request.POST['gross']
+    bill.save()
+
+    return render(request, 'bill/print.html', {'bill': bill})

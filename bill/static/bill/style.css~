@@ -1,0 +1,12 @@
+li a {
+    color: green;
+}
+h2 {font-size:40px;text-transform:uppercase;font-weight:600;color:#3081c8;line-height:52px;padding:2px 0 33px 0}
+
+element {
+    margin-left: 80%;
+}
+
+.button {display:inline-block;font-size:16px;color:#fff;margin-left: 50%;background:#f09e2f;line-height:35px;padding:0 16px;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;behavior:url(js/PIE.htc);position:relative;font-weight:600;text-decoration:none;text-transform:uppercase}
+.button:hover {background:#8cbd20}
+

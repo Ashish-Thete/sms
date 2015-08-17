@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<center><h1>SURYA VIHAR D & E CO-OP. HSG SOC.LTD.</h1><br>
+Registration No.TNA/ABN/HSG/(TC)/20477/2008-2009</small><br>
+S.N.43, HISSA No.1 (PART) BEHIND DUBE HOSPITAL, KATRAP<br>
+</center>
+{% load staticfiles %}
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="{% static 'bill/css/style.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/layout.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/reset.css' %}" type="text/css" media="all">
+<link rel="stylesheet" href="{% static 'bill/css/jqueryCalendar.css' %}" type="text/css" media="all">
+
+<script type="text/javascript" src="{% static 'bill/js/jquery-1.6.2.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/cufon-replace.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/Myriad_Pro_600.font.js' %}"></script>
+<script type="text/javascript" src="{% static 'bill/js/jquery-ui-1.8.15.custom.min.js' %}"></script>
+</head>
+
+<body>
+			<h2>Bill Details</h2>
+			{% if bill %}
+						<form id="BillDetails" action="{% url 'bill:pdf_view' bill.id %}" method="post">
+							{% csrf_token %}
+								<div class="user" style="width: 100%; margin-left: 1%;">
+									Month of Bill:: <span class="names">{{ bill.month }}</span>
+									<table cellpadding="2" cellspacing="2" width="40%" bgcolor="white">
+											<tr>
+												<td> Name of Flat Holder :: </td>
+												<td><span class="names">{{ bill.user.name }}</span></td>
+											</tr>
+											<tr>
+												<td> Mobile No :: </td>
+												<td>{{ bill.user.mobile }}</td>
+												<td> Email :: </td>
+												<td>{{ bill.user.email }}</td>
+											</tr>
+											<tr>
+												<td> Flat No :: </td>
+												<td>{{ bill.user.flat_no }}</td>
+												<td> Wing :: </td>
+												<td>{{ bill.user.wing }}</td>
+												<td> Flat Area :: </td>
+												<td>{{ bill.user.area }}</td>
+											</tr>
+									</table>
+								</div>
+									<div class='perticulars'>
+										<div class="content">
+											<table cellpadding="2" cellspacing="2" width="100%" bgcolor="white">
+												<tr>
+													<td bgcolor="#cccccc" align="center"><span class="names">Sr No</span></td>
+													<td bgcolor="#cccccc" align="center"><span class="names">Particulars</span></td>
+													<td bgcolor="#cccccc" align="center"><span class="names">Amount</span></td>
+												</tr>
+												<tr>
+													<td align="center">1</td>
+													<td align="center">Sinking Fund</td>
+													<td align="center"><i>{{ bill.sinking_fund }}</i></td>
+												</tr>
+												<tr>
+													<td align="center">2</td>
+													<td align="center">Repairs & Maintainance</td>
+													<td align="center"><i>{{bill.repair_and_maintainance}}</i></td>
+												</tr>
+												<tr>
+													<td align="center">3</td>
+													<td align="center">Water Charges</td>
+													<td align="center"><i>{{ bill.water_charges }}</i></td>
+												</tr>
+												<tr>
+													<td align="center">4</td>
+													<td align="center">Electricity Charges</td>
+													<td align="center"><i>{{ bill.electricity_charges }}</i></td>
+												</tr>
+												<tr>
+													<td align="center">5</td>
+													<td align="center">Service Charges</td>
+													<td align="center"><i>{{ bill.service_charges }}</i></td>
+												</tr>
+											</table>
+											<table cellpadding="2" cellspacing="2" width="100%">
+												<tr>
+													<td bgcolor="#cccccc" align="center"></td>
+													<td bgcolor="#cccccc" align="center"><span class="names">Total</span></td>
+													<td bgcolor="#cccccc" align="center"><span class="names">{{ bill.total_charges }}</span></td>
+												</tr>
+												<tr>
+													<td align="center"></td>
+													<td align="center">Interest</td>
+													<td align="center">{{ bill.interest }}</td>
+												</tr>
+												<tr>
+													<td align="center"></td>
+													<td align="center">Penalty</td>
+													<td align="center">{{ bill.penalty }}</td>
+												</tr>
+												<tr>
+													<td align="center"></td>
+													<td align="center">Adjustments</td>
+													<td align="center">{{ bill.adjustments }}</td>
+												</tr>
+												<tr>
+													<td align="center"></td>
+													<td align="center"><span class="names">Total Due Amount & payable Rs.</span></td>
+													<td align="center"><span class="names">{{ bill.payble_amt }}</span></td>
+												</tr>
+											</table>
+								    </div>
+								  </div>
+							<input class="cust_button" type="submit" value="PDF" />
+						  <button onclick="window.print();">Print And Email</button>
+				</form>
+		{% else %}
+			<p>No Flat user are available.</p>
+		{% endif %}
+
+</body>
+</html>

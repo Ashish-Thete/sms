@@ -1,0 +1,105 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bill/style.css' %}" />
+
+<h2>Bill Details</h2>
+<article class="tests">
+	<form id="ContactForm" {% url 'bill:printBill' person.id %}" method="post">
+		<div class="user">
+			{% if person %}
+				<table cellpadding="2" cellspacing="2" width="40%" bgcolor="white">
+					<tr>
+						<td> Name of Flat Holder :: </td>
+						<td>{{ person.name }}</td>
+					</tr>
+					<tr>
+						<td> Mobile No :: </td>
+						<td>{{ person.mobile }}</td>
+					</tr>
+					<tr>
+						<td> Flat No :: </td>
+						<td>{{ person.flat_no }}</td>
+					</tr>
+					<tr>
+						<td> Wing :: </td>
+						<td>{{ person.wing }}</td>
+					</tr>
+					<tr>
+						<td> Flat Area :: </td>
+						<td>{{ person.area }}</td>
+					</tr>
+				</table>
+			{% else %}
+				<p>No Flat user are available.</p>
+			{% endif %}
+		</div>
+
+		<div class='test'>
+			<div class="content">
+				<table cellpadding="2" cellspacing="2" width="100%" bgcolor="white">
+					<tr>
+						<td bgcolor="#cccccc" align="center">Sr No</td>
+						<td bgcolor="#cccccc" align="center">Particulars</td>
+						<td bgcolor="#cccccc" align="center">Amount</td>
+					</tr>
+					<tr>
+						<td align="center">1</td>
+						<td align="center">Sinking Fund</td>
+						<td align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center">2</td>
+						<td align="center">Repairs & Maintainance</td>
+						<td align="center"><input type="text" name="repair" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center">3</td>
+						<td align="center">Water Charges</td>
+						<td align="center"><input type="text" name="water_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center">4</td>
+						<td align="center">Electricity Charges</td>
+						<td align="center"><input type="text" name="electricity_charge" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center">5</td>
+						<td align="center">Service Charges</td>
+						<td align="center"><input type="text" name="service_charge" bgcolor="red"></td>
+					</tr>
+				</table>
+				<table cellpadding="2" cellspacing="2" width="100%">
+					<tr>
+						<td bgcolor="#cccccc" align="center"></td>
+						<td bgcolor="#cccccc" align="center">Total</td>
+						<td bgcolor="#cccccc" align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+						<td align="center">Interest</td>
+						<td align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+						<td align="center">Penalty</td>
+						<td align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+						<td align="center">Adjustments</td>
+						<td align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+						<td align="center">Total Due Amount & payable Rs.</td>
+						<td align="center"><input type="text" name="sink_fund" bgcolor="red"></td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+		<br>
+	    <a href="#" class="button">Submit</a>
+		
+	</form>
+</article>
+

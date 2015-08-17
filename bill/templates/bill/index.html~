@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+{% if flat_user_list %}
+    <ul>
+    {% for flat_user in flat_user_list %}
+        <li><a href="/bill/{{ flat_user.id }}/">{{ flat_user.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No flat User are available.</p>
+{% endif %}
