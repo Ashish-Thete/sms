@@ -25,17 +25,6 @@ SECRET_KEY = 'os_6p!=8zs7i4kb_2r=y*20c@#0xg_8+tx#da(lmz=_rilj5nv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-EMAIL_HOST = 'smtp.gmail.com'
-
-EMAIL_HOST_USER = 'thete.ashish@gmail.com'
-
-EMAIL_HOST_PASSWORD = 'ialwaysloveu'
-
-EMAIL_PORT = 587
-
-EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
